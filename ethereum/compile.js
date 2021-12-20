@@ -5,13 +5,13 @@ const solc = require('solc');
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
-const hotelPath = path.resolve(__dirname, 'contracts', 'Example.sol');
+const hotelPath = path.resolve(__dirname, 'contracts', 'SharedWallet.sol');
 const source = fs.readFileSync(hotelPath, 'utf8');
 
 const input = {
   language: 'Solidity',
   sources: {
-    'Example.sol': {
+    'SharedWallet.sol': {
       content: source,
     },
   },
@@ -28,6 +28,6 @@ const output = JSON.parse(solc.compile(JSON.stringify(input)));
 fs.ensureDirSync(buildPath);
 
 fs.outputJsonSync(
-    path.resolve(buildPath, 'Example.json'),
-    output.contracts['Example.sol']['Example']
+    path.resolve(buildPath, 'SharedWallet.json'),
+    output.contracts['SharedWallet.sol']['SharedWallet']
 );
