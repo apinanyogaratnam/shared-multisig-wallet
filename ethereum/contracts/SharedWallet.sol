@@ -1,19 +1,30 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Example {
-    string private message = "Hello, World!";
+contract SharedWallet {
+    address public owner;
+    address[] public owners;
 
     constructor() {
-        message = "Hello, World!";
+        owner = msg.sender;
+        owners.push(msg.sender);
     }
 
-    // @return (string) returns message
-    function getMessage() public view returns (string memory) {
-        return message;
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
     }
 
-    // @param (string) message to set
-    function setMessage(string memory _message) public {
-        message = _message;
+    function addOwner(address _newOwner) external onlyOwner {
+        owners.push(_newOwner);
+    }
+
+    function transferOwnership(address _newOwner) external onlyOwner {
+        owner = _newOwner;
+    }
+
+    function removeOwner(uint _index) external onlyOwner {
+        owners[_index] = owners[owners.length - 1];
+        delete owners[owners.length - 1];
     }
 }
