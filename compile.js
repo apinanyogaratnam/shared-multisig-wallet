@@ -5,8 +5,8 @@ const solc = require('solc');
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
-const hotelPath = path.resolve(__dirname, 'contracts', 'SharedWallet.sol');
-const source = fs.readFileSync(hotelPath, 'utf8');
+const sharedWalletPath = path.resolve(__dirname, 'contracts', 'SharedWallet.sol');
+const source = fs.readFileSync(sharedWalletPath, 'utf8');
 
 const input = {
   language: 'Solidity',
